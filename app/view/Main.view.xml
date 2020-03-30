@@ -1,0 +1,71 @@
+<mvc:View
+  xmlns:core="sap.ui.core"
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns:c="sap.ui.commons"
+  xmlns="sap.m"
+  xmlns:l="sap.ui.layout"
+  xmlns:html="http://www.w3.org/1999/xhtml"
+  xmlns:t="sap.ui.table"
+  xmlns:f="sap.ui.layout.form"
+  xmlns:comp="resourcesefficiency.component"
+  controllerName="resourcesefficiency.controller.Main">
+  <Page title="{i18n>resourcesefficiency.view.title}" class="myPage" showHeader="true" enableScrolling="true" showNavButton="true" navButtonPress="toBackPage">
+    <headerContent>
+      <Label text="{i18n>resourcesefficiency.view.user.label}" class="sapUiTinyMarginEnd"/>
+      <Label text="{info>/user/name}" class="sapUiMediumMarginEnd whiteText"/>
+      <Button press="logOff" icon="sap-icon://log"/>
+      <Image id="DLLogo" class="DLLogo" src="images/Delonghi.png" densityAware="false" height="75%"/>
+    </headerContent>
+    <content>
+      <VBox width="100%" height="100%">
+        <HBox justifyContent="SpaceBetween" class="sapUiSmallMargin">
+          <VBox alignItems="Center">
+            <Label text="{i18n>resourcesefficiency.view.date}"/>
+            <DateRangeSelection id="datePicker" displayFormat="d MMM y" valueFormat="yyyy-MM-dd" width="20vw"/>
+          </VBox>
+          <VBox alignItems="Center">
+            <HBox justifyContent="SpaceBetween" alignItems="Center" width="7rem">
+              <core:Icon color="#2b7c2b" size="2rem" src="sap-icon://thumb-up"/>
+              <Label text="{i18n>resourcesefficiency.view.best_line}"/>
+            </HBox>
+              <Text id="bestLine" text=""/>
+          </VBox>
+          <VBox alignItems="Center">
+            <HBox justifyContent="SpaceBetween" alignItems="Center" width="7rem">
+              <core:Icon color="#b00" size="2rem" src="sap-icon://thumb-down"/>
+              <Label text="{i18n>resourcesefficiency.view.worst_line}"/>
+            </HBox>
+              <Text id="worstLine" text=""/>
+          </VBox>
+          <Button type="Accept" icon="sap-icon://feeder-arrow" text="{i18n>resourcesefficiency.view.search}" press="onSearchPress" width="20vw"/>
+        </HBox>
+        <Table id="tableEfficiency" items="{/}">
+          <columns>
+            <Column>
+              <ObjectIdentifier title="{i18n>resourcesefficiency.view.RESOURCE}" text="{i18n>resourcesefficiency.view.DESCRIPTION}"/>
+            </Column>
+            <Column>
+              <Text text="{i18n>resourcesefficiency.view.QTY}"/>
+            </Column>
+            <Column>
+              <Text text="{i18n>resourcesefficiency.view.PPH}"/>
+            </Column>
+            <Column >
+              <Text text="{i18n>resourcesefficiency.view.EFFICIENCY}"/>
+            </Column>
+          </columns>
+          <items>
+            <ColumnListItem>
+              <cells>
+                <ObjectIdentifier title="{RESRCE}" text="{DESCRIPTION}"/>
+                <Text text="{QTY_REAL} / {QTY_TARGET}"/>
+                <Text text="{= parseInt(${PPH_REAL} * 100) / 100} / {PPH_TARGET}"/>
+                <ProgressIndicator percentValue="{PERC}" displayValue="{= parseInt(${PERC})} %" state="{STATUS}"/>
+              </cells>
+            </ColumnListItem>
+          </items>
+        </Table>
+      </VBox>
+    </content>
+  </Page>
+</mvc:View>
