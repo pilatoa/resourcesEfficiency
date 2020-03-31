@@ -45,10 +45,10 @@
               <ObjectIdentifier title="{i18n>resourcesefficiency.view.RESOURCE}" text="{i18n>resourcesefficiency.view.DESCRIPTION}"/>
             </Column>
             <Column>
-              <Text text="{i18n>resourcesefficiency.view.QTY}"/>
+              <ObjectIdentifier title="{i18n>resourcesefficiency.view.QTY}" text="{i18n>resourcesefficiency.view.QTYtext}"/>
             </Column>
             <Column>
-              <Text text="{i18n>resourcesefficiency.view.PPH}"/>
+              <ObjectIdentifier title="{i18n>resourcesefficiency.view.PPH}" text="{i18n>resourcesefficiency.view.PPHtext}"/>
             </Column>
             <Column >
               <Text text="{i18n>resourcesefficiency.view.EFFICIENCY}"/>
