@@ -28,14 +28,18 @@
               <core:Icon color="#2b7c2b" size="2rem" src="sap-icon://thumb-up"/>
               <Label text="{i18n>resourcesefficiency.view.best_line}"/>
             </HBox>
-              <Text id="bestLine" text=""/>
+            <Text id="bestLine" text=""/>
+          </VBox>
+          <VBox alignItems="Center">
+            <Label design="Bold" text="{i18n>resourcesefficiency.view.average}"/>
+            <ProgressIndicator id="avgLine" width="15rem"/>
           </VBox>
           <VBox alignItems="Center">
             <HBox justifyContent="SpaceBetween" alignItems="Center" width="7rem">
               <core:Icon color="#b00" size="2rem" src="sap-icon://thumb-down"/>
               <Label text="{i18n>resourcesefficiency.view.worst_line}"/>
             </HBox>
-              <Text id="worstLine" text=""/>
+            <Text id="worstLine" text=""/>
           </VBox>
           <Button type="Accept" icon="sap-icon://feeder-arrow" text="{i18n>resourcesefficiency.view.search}" press="onSearchPress" width="20vw"/>
         </HBox>

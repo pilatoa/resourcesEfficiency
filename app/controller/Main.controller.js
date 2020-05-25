@@ -6,34 +6,35 @@ sap.ui.define([
 	'sap/m/Dialog',
 	'./BaseController',
 	'../model/CommonManager'
-], function (jQuery, JSONModel, MessageBox, MessageToast, Dialog, BaseController, CommonCallManager) {
+], function(jQuery, JSONModel, MessageBox, MessageToast, Dialog, BaseController, CommonCallManager) {
 	"use strict";
 
 	var MainController = BaseController.extend("resourcesefficiency.controller.Main", {
 		modelEfficiency: new JSONModel(),
-		onInit: function () {
+		onInit: function() {
 			this.datePicker = this.getView().byId("datePicker");
 			this.tableEfficiency = this.getView().byId("tableEfficiency");
 			this.getView().setModel(this.getInfoModel(), "info");
 			this.tableEfficiency.setModel(this.modelEfficiency);
 			this.bestLine = this.getView().byId("bestLine");
 			this.worstLine = this.getView().byId("worstLine");
+			this.avgLine = this.getView().byId("avgLine");
 		},
-		onAfterRendering: function () {
-      this.datePicker.setDateValue(new Date());
+		onAfterRendering: function() {
+			this.datePicker.setDateValue(new Date());
 			this.datePicker.setSecondDateValue(new Date());
-      this.getResourcesEfficiency();
-		},
-		onSearchPress: function () {
 			this.getResourcesEfficiency();
 		},
-		getResourcesEfficiency: function () {
+		onSearchPress: function() {
+			this.getResourcesEfficiency();
+		},
+		getResourcesEfficiency: function() {
 
 			var that = this;
 
-      var dateFrom = this.datePicker.getDateValue().toISOString().substr(0,10);
-			var dateTo = this.datePicker.getSecondDateValue().toISOString().substr(0,10);
-      var resourceType = jQuery.sap.getUriParameters().get("resourceType");
+			var dateFrom = this.datePicker.getDateValue().toISOString().substr(0, 10);
+			var dateTo = this.datePicker.getSecondDateValue().toISOString().substr(0, 10);
+			var resourceType = jQuery.sap.getUriParameters().get("resourceType");
 
 			var transaction = "ES/TRANSACTIONS/LATHES/EFFICIENCY/GET_EFFICIENCY_BY_DATE_RANGE";
 
@@ -54,8 +55,12 @@ sap.ui.define([
 						RESRCE: '',
 						PERC: 999
 					};
+
+					var avg = 0;
+
 					for (var n in data.Rows) {
 						var rowEff = parseInt(data.Rows[n].PERC, 10);
+						avg += rowEff;
 						if (rowEff > best.PERC) {
 							best.PERC = rowEff;
 							best.RESRCE = data.Rows[n].RESRCE;
@@ -66,18 +71,25 @@ sap.ui.define([
 						}
 					}
 
+					avg = parseInt(avg / data.Rows.length,10);
+					that.avgLine.setPercentValue(avg);
+					that.avgLine.setDisplayValue(avg + ' %');
+					that.avgLine.setState('Warning');
+					if (avg >= 95) that.avgLine.setState('Success');
+					if (avg < 90) that.avgLine.setState('Error');
+
 					that.bestLine.setText(best.RESRCE + ' @ ' + best.PERC + ' %');
 					that.worstLine.setText(worst.RESRCE + ' @ ' + worst.PERC + ' %');
 
-					data.Rows.map(function (row) {
+					data.Rows.map(function(row) {
 						switch (true) {
-							case (row.PERC < 90) :
+							case (row.PERC < 90):
 								row.STATUS = 'Error';
 								break;
-							case (row.PERC >= 95) :
+							case (row.PERC >= 95):
 								row.STATUS = 'Success';
 								break;
-							default :
+							default:
 								row.STATUS = 'Warning';
 								break;
 						}

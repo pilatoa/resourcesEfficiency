@@ -50,16 +50,16 @@
 				dist: {},
 				proxies: [{
 						context: "/XMII/Runner", // When the url contains this...
-						host: "172.19.112.151", // Proxy to this host
-						port: 51000,
+						host: "172.19.112.154", // Proxy to this host
+						port: 52000,
 						changeOrigin: true,
 						headers: {
 							"Authorization": Auth
 						}
 					}, {
 						context: "/XMII/Illuminator", // When the url contains this...
-						host: "172.19.112.151", // Proxy to this host
-						port: 51000,
+						host: "172.19.112.154", // Proxy to this host
+						port: 52000,
 						changeOrigin: true,
 						headers: {
 							"Authorization": Auth
