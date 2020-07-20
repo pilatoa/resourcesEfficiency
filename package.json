@@ -31,6 +31,6 @@
         "grunt-sync": "^0.8.2"
     },
     "dependencies": {
-        "lodash": "^4.17.15"
+        "lodash": "^4.17.19"
     }
 }
